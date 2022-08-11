@@ -1,20 +1,26 @@
-<h1>Our Tours</h1>
-<!-- PUT UNDERLINE HERE -->
+<div class="app-container">
+  <h1 class="title">Our Tours</h1>
 
-<div *ngFor="let data of datas">
-  <img src="{{ data.image }}" alt="{{ data.name }}" />
-  <div>
-    <h3>{{ data.name }}</h3>
-    <!-- SEE IF PIPE IS BETTER HERE -->
-    <h3>${{ data.price }}</h3>
+  <div *ngFor="let data of datas" class="single-tour">
+    <img src="{{ data.image }}" alt="{{ data.name }}" class="single-tour-img" />
+    <div class="tour-header">
+      <h3>{{ data.name | uppercase }}</h3>
+      <h3>${{ data.price }}</h3>
+    </div>
+    <div class="tour-info">
+      <p>
+        {{ readMore === true ? data.info : data.info.substring(0, 200) + "..."
+        }}<button (click)="toggleReadMore()" class="view-button">
+          {{ readMore === true ? "Show Less" : "Read More" }}
+        </button>
+      </p>
+    </div>
+    <div class="delete-btn-container">
+      <button (click)="filterOut(data.id)" class="delete-btn">
+        Not Interested
+      </button>
+    </div>
   </div>
-  <div>
-    <p>
-      {{ readMore === true ? data.info : data.info.substring(0, 200) + "..."
-      }}<button (click)="toggleReadMore()">{{readMore === true ? "Show Less" : "Read More"}}</button>
-    </p>
-  </div>
-  <button (click)="filterOut(data.id)">Not Interested</button>
+
+  <button *ngIf="datas.length === 0" class="refresh-button" (click)="refresh()">Refresh</button>
 </div>
-
-<button *ngIf="datas.length === 0">Refresh</button>

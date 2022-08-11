@@ -31,4 +31,8 @@ export class AppComponent {
   filterOut (tourId: string): void {
     this.datas = this.datas.filter((item) => item.id !== tourId)
   }
+
+  refresh():void {
+    this.getData();
+  }
 }
